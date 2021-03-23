@@ -1,12 +1,8 @@
-//chips: JSXとしてコンパイルする場合、import Reactは必要
 import React from 'react';
+import propTypes from 'prop-types';
 
-// chips: Userコンポーネントに対し、"name"という名前のprops(属性)を与えている
 const App = () => {
 
-  // chips2: これは多分標準のJavaScriptのコード
-  // chips3: NaNaeさんは年齢のpropsが存在しないため、
-  //         defaultPropsで定義した値が設定される。
   const profiles = [
     {
       name: "Taro", age: 10
@@ -15,33 +11,33 @@ const App = () => {
       name: "Hanako", age: 5
     },
     {
-      name: "NaNae"
+      name: "NaNae", age: 3
     }
   ]
 
-  // chips3: {}内にJavaScriptコーディングが出来る??
-  // chips4: 下記、key属性を指定しなくても問題ないが、ワーニングが出る。
-  //         これはユニークでないDOMツリーが出来てしまうため。
-  //         それを防ぐために、key属性でそれぞれ別のものだよ、っていうのをブラウザに教えることが出来る
+  //chips: コンポーネントのpropsの定義(nameとかageとか..)はこちらで行う
   return (
     <div>
       {
         profiles.map((el, index) => {
-          return <User name={el.name} age={el.age} key={index}/>
+          return <User name={el.name} age={el.age} key={index} />
         })
       }
     </div>
   )
 }
 
-// chips: 下記の形を関数コンポーネントという。
+//chips: ファンクションコンポーネントの定義
 const User = (props) => {
   return <div>Hi! I am {props.name}, and {props.age} years old! </div>
 }
 
-// chips5: コンポーネントのpropが不定である場合に、デフォルト値で以下を設定する..という意味
-User.defaultProps = {
-  age: 1
+//chips XXXX.propTypes ～ と記載することで型定義を行うことが出来る。
+//chips 更に.isRequiredと記載すると、Userコンポーネントを使う場合は、
+//      指定した属性への引数は省略できないよ、と定義することが出来る。
+User.propTypes = {
+  name: propTypes.string,
+  age: propTypes.number.isRequired
 }
 
 export default App;
