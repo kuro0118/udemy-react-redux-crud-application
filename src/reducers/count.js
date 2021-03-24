@@ -1,5 +1,5 @@
 // chips: カウントリデューサー
-// chips: ステートの状態を管理する
+// chips: リデューサーの役割とはステートの変更を担う。
 
 import { INCREMENT, DECREMENT } from '../actions'
 
