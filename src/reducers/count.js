@@ -10,7 +10,10 @@ const initialState = { value: 0 }
 // chips: 受け取ったアクションに対して、ステートを変更させる。
 //        その結果を返す。
 // chips: action.typeでアクションのタイプを取れる
+// chips: 詳細を話すと、ここのactionに該当するものが、コンポーネントから送信された
+//        dispatch()で飛ばされた、アクションクリエーターのアクションタイプ。
 export default (state = initialState, action) => {
+    console.log("reducer");
     switch (action.type) {
         case INCREMENT:
             return { value: state.value + 1 }
