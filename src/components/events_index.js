@@ -21,6 +21,7 @@ import { readEvents } from '../actions';
 class EventsIndex extends Component {
 
   // chips: コンポーネントがマウント時(実行された時)に呼ばれるコールバック
+  // chips: 初期表示処理とかしたいときに使う
   componentDidMount() {
     //chips: リデューサーへのトリガー
     //chips: 外部のAPIサーバーに対してリクエストを送信する
@@ -32,9 +33,15 @@ class EventsIndex extends Component {
     return _.map(this.props.events, event => (
       //chips: keyを指定しないと、DOMが重複してまっせ！って起こられるので、
       //       keyを指定することで、各DOMをユニークだよ、とブラウザさんに教えてあげる
+      //chips: Linkコンポーネントでラップすることで、文字列をリンクに出来る。
+      //       ラップ中にタグがあるとエラーになるので、タグは外だしすること。
       <tr key={event.id}>
         <td>{event.id}</td>
-        <td>{event.title}</td>
+        <td>
+          <Link to={`/events/${event.id}`}>
+            {event.title}
+          </Link>
+        </td>
         <td>{event.body}</td>
       </tr>
     ))
@@ -59,7 +66,7 @@ class EventsIndex extends Component {
     /* <button onClick={props.increment}>+1</button> */
     /* ここのprops.incrementというのは下記のmapDispatchToPropsで定義したdecrementのprops */
     /* <button onClick={props.decrement}>-1</button> */
-
+    console.log("onload");
     return (
       <React.Fragment>
         <table>

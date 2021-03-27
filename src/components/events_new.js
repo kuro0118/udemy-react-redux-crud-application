@@ -49,7 +49,9 @@ class EventsNew extends Component {
     //        submittingはsubmitボタンの処理中はtrueを返す(活性)。まだ、submitボタンが押されていない、つまり
     //        処理中でない場合はfalseを返す(非活性)。
     //        2重押し対策によく使用されえる。
-    const { handleSubmit, pristine, submitting } = this.props;
+    //        invalidはvalidate発生中にtrue, 何もない時はfalseになる。
+    //        エラーが発生しているときはボタンを押させたくない時とか
+    const { handleSubmit, pristine, submitting, invalid } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
@@ -59,7 +61,7 @@ class EventsNew extends Component {
           <Field label="Body" name="body" type="text" component={this.renderField} />
         </div>
         <div>
-          <input type="submit" value="Submit" disabled={pristine || submitting} />
+          <input type="submit" value="Submit" disabled={pristine || submitting || invalid} />
           <Link to="/">Cancel</Link>
         </div>
       </form>
