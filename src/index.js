@@ -1,9 +1,9 @@
 // chips: importの後の中括弧無しはファイルから全体importしている
 //        中括弧付きは特定のオブジェクトのみをimportしている
 // chips: export defaultされたものを使いたい時、importする側は任意の名前を付けることが可能
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // chips: redux-thunkはミドルウェアであるため、
 //        アプリでミドルウェアを使える様にするために、reduxからインポートしておく。
 // chips: redux-thunkを使う事で、actionに非同期処理の関数を変えさせることが出来る、
@@ -48,16 +48,19 @@ ReactDOM.render(
   //        因みに指定するpath≠アプリの階層パスではないため、注意。
   //        コンポーネント内でLink to = "hamachi"にして、Routeのpathを"hamachi"にしていてもリンク遷移出来る。(その場合、URLには"hamachi"と表示されるが)
   // chips: ルーティング時のパラメータ文字列は:XXという形にすることのを注意。(XXの文字列自体は何でもいい。)
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        <Route path='/events_new' component={EventsNew} />
-        <Route path='/events/:id' component={EventsShow} />
-        <Route exact path='/events' component={EventsIndex} />
-        <Route exact path='/' component={EventsIndex} />
-      </Switch>
-    </BrowserRouter>
-  </Provider>,
+  // chips: MuiThemeProviderでラップすることにより、material-uiがコンポーネントで使用出来るようになる。
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path='/events_new' component={EventsNew} />
+          <Route path='/events/:id' component={EventsShow} />
+          <Route exact path='/events' component={EventsIndex} />
+          <Route exact path='/' component={EventsIndex} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 
